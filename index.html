@@ -9,6 +9,7 @@
   <body onload="execDaumPostcode()">
   <div id = "layer" style = "display:block; position:absolute; overflow:hidden; z-index:1; -webkit-overflow-scrolling:touch; ">
   </div>
+  <! Use either of the URLs "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" >
   <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
   <script>
     window.addEventListener("message", onReceivedPostMessage, false);
@@ -34,18 +35,7 @@
     function execDaumPostcode() {
       new daum.Postcode({
         oncomplete: function(data) {
-          var jibunAddress = ""
-
-          if (data.jibunAddress == "") {
-            jibunAddress = data.autoJibunAddress
-          } else if (data.autoJibunAddress == "") {
-            jibunAddress = data.jibunAddress
-          }
-
           var postData = {
-              roadAddress : data.roadAddress,
-              jibunAddress : jibunAddress,
-              zonecode : data.zonecode,
               addressData : data
           };
           window.postMessageToiOS(postData);
